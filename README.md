@@ -1,0 +1,1 @@
+Se modificara el codigo del videojuego para añadir nuevas funcionalidades, el primer compañero añadira  un color nuevo y crear un circulo y el otro mediante un fork completara un rectangulo y un triangulo 

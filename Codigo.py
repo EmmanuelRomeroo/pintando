@@ -1,21 +1,13 @@
-"""Paint, for drawing shapes.
-
-Exercises
-
-1. Add a color.
-2. Complete circle.
-3. Complete rectangle.
-4. Complete triangle.
-5. Add width parameter.
-"""
+"""Paint, para dibujar figuras."""
 
 from turtle import *
+import turtle
 
 from freegames import vector
 
 
 def line(start, end):
-    """Draw line from start to end."""
+    """Dibuja una línea entre dos puntos."""
     up()
     goto(start.x, start.y)
     down()
@@ -23,9 +15,10 @@ def line(start, end):
 
 
 def square(start, end):
-    """Draw square from start to end."""
+    """Dibuja un cuadrado."""
     up()
     goto(start.x, start.y)
+    setheading(0)
     down()
     begin_fill()
 
@@ -37,22 +30,30 @@ def square(start, end):
 
 
 def circle(start, end):
-    """Draw circle from start to end."""
-    pass  # TODO
+    """Primer clic: centro. Segundo clic: define el radio."""
+    radius = abs(end - start)
+
+    up()
+    goto(start.x, start.y - radius)
+    setheading(0)
+    down()
+    begin_fill()
+    turtle.circle(radius)
+    end_fill()
 
 
 def rectangle(start, end):
-    """Draw rectangle from start to end."""
-    pass  # TODO
+    """Pendiente: dibujar un rectángulo."""
+    pass
 
 
 def triangle(start, end):
-    """Draw triangle from start to end."""
-    pass  # TODO
+    """Pendiente: dibujar un triángulo."""
+    pass
 
 
 def tap(x, y):
-    """Store starting point or draw shape."""
+    """Guarda el primer punto o dibuja la figura."""
     start = state['start']
 
     if start is None:
@@ -65,24 +66,32 @@ def tap(x, y):
 
 
 def store(key, value):
-    """Store value in state at key."""
+    """Guarda un valor en el estado."""
     state[key] = value
 
 
 state = {'start': None, 'shape': line}
+
 setup(420, 420, 370, 0)
 onscreenclick(tap)
 listen()
+
+# Deshacer el último paso de turtle.
 onkey(undo, 'u')
-onkey(lambda: color('purple'), 'P')
+
+# Colores: usa Mayús + la letra.
 onkey(lambda: color('black'), 'K')
 onkey(lambda: color('white'), 'W')
 onkey(lambda: color('green'), 'G')
 onkey(lambda: color('blue'), 'B')
 onkey(lambda: color('red'), 'R')
+onkey(lambda: color('purple'), 'P')
+
+# Figuras: usa letras minúsculas.
 onkey(lambda: store('shape', line), 'l')
 onkey(lambda: store('shape', square), 's')
 onkey(lambda: store('shape', circle), 'c')
 onkey(lambda: store('shape', rectangle), 'r')
 onkey(lambda: store('shape', triangle), 't')
+
 done()
